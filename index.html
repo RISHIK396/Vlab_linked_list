@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="V-Lab.....Search Algorithms....Linear Search and Binary Search">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Algorithms</title>
+    <link rel="icon" href="images/vlab-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="https://www.vlab.andcollege.du.ac.in" rel="noopener" target="_blank">
+                <img class="logo-img" src="logo.png"  alt="VLab">
+            </a>
+        </div>
+        <div class="vlabtitle">
+            <h1 class="">V-LAB @ ANDC</h1>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav class="nav-menu" id="small-screen">
+            <div class="close-btn" onclick="toggleMenu()">✖</div>
+            <a href="https://www.vlab.andcollege.du.ac.in">Home</a>
+            <a href="https://www.vlab.andcollege.du.ac.in#labs_section">Labs</a>
+            <a href="https://www.vlab.andcollege.du.ac.in#team">Team</a>
+            <a href="https://www.andcollege.du.ac.in">College Website</a>
+        </nav>
+
+    </header>
+
+    <div class="h1title">
+        <h1>Singly Linked List</h1>
+    </div>
+
+    <div class="pageview">
+        <nav class="navigation">
+            <button class="link" onclick="switchContent('aim')">
+                <img class="icon" src="Aim_img.png"  alt="Aim">
+                <span>Aim</span>
+            </button>
+
+            <button class="link" onclick="switchContent('theory')">
+                <img class="icon" src="theory_img.png"  alt="THEORY">
+                <span>Theory</span>
+            </button>
+
+            <button class="link" onclick="switchContent('procedure')">
+                <img class="icon" src="procedure_img.png" alt="PROCEDURE">
+                <span>Procedure</span>
+            </button>
+
+            <button class="link" onclick="switchContent('practice')">
+                <img class="icon" src="practice_img.png"  alt="PRACTICE">
+                <span>Practice</span>
+            </button>
+
+            <button class="link" onclick="switchContent('code')">
+                <img class="icon" src="code_img.png"  alt="CODES">
+                <span>Codes</span>
+            </button>
+
+            <button class="link" onclick="switchContent('result')">
+                <img class="icon" src="result_img.png"  alt="RESULT">
+                <span>Result</span>
+            </button>
+
+            <button class="link" onclick="switchContent('quiz')">
+                <img class="icon" src="quiz_img.png" alt="QUIZ">
+                <span>Quiz</span>
+            </button>
+
+            <button class="link" onclick="switchContent('references')">
+                <img class="icon" src="reference_img.png"  alt="REFERENCE">
+                <span>References</span>
+            </button>
+            <button class="link" onclick="switchContent('tnt')">
+                <img class="icon" src="tnt_img.png"  alt="TEAM & TOOLS">
+                <span>Team & Tools</span>
+            </button>
+
+        </nav>
+
+
+        <section class="practical">
+            <div class="container" id="aim">
+                <div class="title">
+                    Aim
+                </div>
+                <div class="content">
+                    <p>
+                        To simulate and understand the operations of a Singly Linked List (SLL), specifically insertion and deletion in various scenarios, through visualization and hands-on practice.
+                    </p>
+                </div>
+
+            </div>
+            <div class="container" id="theory">
+                <div class="title">
+                    Theory
+                </div>
+                <div class="content">
+                    <p>
+                        The adaptive search algorithm combines the efficiency of binary search for sorted list
+                        and the simplicity of linear search for unsorted list. It determines the nature of the
+                        given sequence of elements by checking if it is sorted or unsorted. Based on the result, it
+                        applies the
+                        appropriate search algorithm. If the list is sorted, it performs binary search; otherwise,
+                        it resorts to linear search.</p>
+                    <p>
+                        Search algorithms, such as linear search and binary search, are fundamental concepts with
+                        various applications in computer science and real-world scenarios.<br> Its some applications
+                        include:
+                    </p>
+                    <ul class="stepsP">
+                        <li><strong>Database Systems:</strong> Search algorithms are widely used in database systems to
+                            efficiently retrieve information based on search queries.</li>
+                        <li><strong>Information Retrieval:</strong> Search algorithms power search engines, helping
+                            users find relevant information on the web.</li>
+                        <li><strong>Sorting and Searching in Libraries:</strong> These algorithms are used in libraries
+                            to organize and retrieve books efficiently.</li>
+                        <li><strong>Network Routing:</strong> In networking, search algorithms play a crucial role in
+                            determining optimal routes for data transmission.</li>
+                        <li><strong>Game Development:</strong> Search algorithms are utilized in games to find paths,
+                            search for objects, or make decisions based on game states.</li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- Procedure Section -->
+            <div class="container" id="procedure">
+                <div class="title">
+                    Procedure
+                </div>
+                <b><big>Insertion</big></b><br>
+                <div class="content">
+                    <p>The procedure for implementing the adaptive search algorithm can be summarized as follows:</p>
+                    <ol class="steps-list">
+                        <li><b>At the begining:</b></li>
+                        <ul type="i">
+                        <li>Create a new node.</li>
+                        <li>Point the new node’s next to the current head.</li>
+                        <li>Update the head to the new node.</li>
+                        </ul>
+                           <li> <b>At the End:</b></li>
+                            <ul>
+                                <li>Create a new node</li>
+                                <li>Traverse the list to find the new node</li>
+                                <li>Point the last node next to new node</li>
+                            </ul>
+
+                            <li> <b>At a specific position:</b></li>
+                            <ul>
+                                <li>Create a new node</li>
+                                <li>Traverse the list to the node just before the specified position.</li>
+                                <li>Update the pointers to insert the new node in the desired position.</li>
+                            </ul>
+
+                            <ul>
+                                <li>Create a new node</li>
+                                <li>Traverse the list to the node just before the specified position.</li>
+                                <li>Update the pointers to insert the new node in the desired position.</li>
+                            </ul>
+
+                            </ol>
+                        </li>
+                </div>
+            </div>
+
+
+            <div class="container" id="code">
+                <div class="title">Code</div>
+                <p> Example programs</p>
+                <div class="switch-container">
+                    <input class="togswt" type="radio" id="cppRadio" name="codeSwitch" checked>
+                    <label for="cppRadio" onclick="toggleCode('cpp')">C++</label>
+
+                    <input class="togswt" type="radio" id="pythonRadio" name="codeSwitch">
+                    <label for="pythonRadio" onclick="toggleCode('python')">Python</label>
+                </div>
+
+                <div class="code-blocks">
+                    <div id="cppCode" class="code-block active">
+                        <div class="code-content">
+                            <pre>
+<code class="language-cpp">// C++
+    #include <iostream>
+        using namespace std;
+        
+        // Node structure
+        struct Node {
+            int data;
+            Node* next;
+        
+            Node(int value) { // Constructor to initialize a node
+                data = value;
+                next = nullptr;
+            }
+        };
+        
+        // Singly Linked List class
+        class SinglyLinkedList {
+        private:
+            Node* head; // Pointer to the first node
+        
+        public:
+            // Constructor
+            SinglyLinkedList() {
+                head = nullptr;
+            }
+        
+            // Insert at the start
+            void insertAtStart(int value) {
+                Node* newNode = new Node(value);
+                newNode->next = head;
+                head = newNode;
+            }
+        
+            // Insert at the end
+            void insertAtEnd(int value) {
+                Node* newNode = new Node(value);
+                if (!head) { // If the list is empty
+                    head = newNode;
+                    return;
+                }
+                Node* temp = head;
+                while (temp->next) {
+                    temp = temp->next;
+                }
+                temp->next = newNode;
+            }
+        
+            // Insert in the middle (after a given value)
+            void insertAfter(int target, int value) {
+                Node* temp = head;
+                while (temp && temp->data != target) {
+                    temp = temp->next;
+                }
+                if (temp) { // If the target node is found
+                    Node* newNode = new Node(value);
+                    newNode->next = temp->next;
+                    temp->next = newNode;
+                } else {
+                    cout << "Target value not found!\n";
+                }
+            }
+        
+            // Delete at the start
+            void deleteAtStart() {
+                if (!head) { // If the list is empty
+                    cout << "List is empty!\n";
+                    return;
+                }
+                Node* temp = head;
+                head = head->next;
+                delete temp;
+            }
+        
+            // Delete at the end
+            void deleteAtEnd() {
+                if (!head) { // If the list is empty
+                    cout << "List is empty!\n";
+                    return;
+                }
+                if (!head->next) { // If there is only one node
+                    delete head;
+                    head = nullptr;
+                    return;
+                }
+                Node* temp = head;
+                while (temp->next->next) {
+                    temp = temp->next;
+                }
+                delete temp->next;
+                temp->next = nullptr;
+            }
+        
+            // Delete in the middle (specific value)
+            void deleteValue(int value) {
+                if (!head) { // If the list is empty
+                    cout << "List is empty!\n";
+                    return;
+                }
+                if (head->data == value) { // If the value is at the start
+                    Node* temp = head;
+                    head = head->next;
+                    delete temp;
+                    return;
+                }
+                Node* temp = head;
+                while (temp->next && temp->next->data != value) {
+                    temp = temp->next;
+                }
+                if (temp->next) { // If the value is found
+                    Node* toDelete = temp->next;
+                    temp->next = temp->next->next;
+                    delete toDelete;
+                } else {
+                    cout << "Value not found!\n";
+                }
+            }
+        
+            // Search for a value
+            bool search(int value) {
+                Node* temp = head;
+                while (temp) {
+                    if (temp->data == value) {
+                        return true;
+                    }
+                    temp = temp->next;
+                }
+                return false;
+            }
+        
+            // Display the list
+            void display() {
+                Node* temp = head;
+                while (temp) {
+                    cout << temp->data << " -> ";
+                    temp = temp->next;
+                }
+                cout << "NULL\n";
+            }
+        };
+        
+        int main() {
+            SinglyLinkedList list;
+        
+            // Test insertion
+            list.insertAtStart(10);
+            list.insertAtStart(20);
+            list.insertAtEnd(30);
+            list.insertAfter(10, 25);
+        
+            cout << "List after insertions: ";
+            list.display();
+        
+            // Test deletion
+            list.deleteAtStart();
+            cout << "List after deleting at start: ";
+            list.display();
+        
+            list.deleteAtEnd();
+            cout << "List after deleting at end: ";
+            list.display();
+        
+            list.deleteValue(25);
+            cout << "List after deleting value 25: ";
+            list.display();
+        
+            // Test search
+            cout << "Searching for 10: " << (list.search(10) ? "Found" : "Not Found") << "\n";
+            cout << "Searching for 40: " << (list.search(40) ? "Found" : "Not Found") << "\n";
+        
+            return 0;
+        }
+                            </code></pre>
+                            <button class="copy-button" onclick="copyCode('cppCode')">Copy</button>
+                        </div>
+                    </div>
+                    <div id="pyCode" class="code-block" style="display: none;">
+                        <div class="code-content">
+                            <pre><code class="language-python"># Python
+class Node:
+    """A class representing a node in a singly linked list."""
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class SinglyLinkedList:
+    """A class representing a singly linked list."""
+    def __init__(self):
+        self.head = None
+
+    def insert_at_start(self, data):
+        """Insert a new node at the start of the list."""
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def insert_at_end(self, data):
+        """Insert a new node at the end of the list."""
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+    def insert_after(self, target, data):
+        """Insert a new node after a specific node value."""
+        current = self.head
+        while current and current.data != target:
+            current = current.next
+        if current:
+            new_node = Node(data)
+            new_node.next = current.next
+            current.next = new_node
+        else:
+            print("Target value not found!")
+
+    def delete_at_start(self):
+        """Delete the node at the start of the list."""
+        if not self.head:
+            print("List is empty!")
+            return
+        self.head = self.head.next
+
+    def delete_at_end(self):
+        """Delete the node at the end of the list."""
+        if not self.head:
+            print("List is empty!")
+            return
+        if not self.head.next:
+            self.head = None
+            return
+        current = self.head
+        while current.next and current.next.next:
+            current = current.next
+        current.next = None
+
+    def delete_value(self, value):
+        """Delete the first node with the given value."""
+        if not self.head:
+            print("List is empty!")
+            return
+        if self.head.data == value:
+            self.head = self.head.next
+            return
+        current = self.head
+        while current.next and current.next.data != value:
+            current = current.next
+        if current.next:
+            current.next = current.next.next
+        else:
+            print("Value not found!")
+
+    def search(self, value):
+        """Search for a node with the given value."""
+        current = self.head
+        while current:
+            if current.data == value:
+                return True
+            current = current.next
+        return False
+
+    def display(self):
+        """Display the linked list."""
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("NULL")
+
+
+# Example usage
+if __name__ == "__main__":
+    linked_list = SinglyLinkedList()
+
+    # Test insertion
+    linked_list.insert_at_start(10)
+    linked_list.insert_at_start(20)
+    linked_list.insert_at_end(30)
+    linked_list.insert_after(10, 25)
+
+    print("List after insertions:")
+    linked_list.display()
+
+    # Test deletion
+    linked_list.delete_at_start()
+    print("List after deleting at start:")
+    linked_list.display()
+
+    linked_list.delete_at_end()
+    print("List after deleting at end:")
+    linked_list.display()
+
+    linked_list.delete_value(25)
+    print("List after deleting value 25:")
+    linked_list.display()
+
+    # Test search
+    print("Searching for 10:", "Found" if linked_list.search(10) else "Not Found")
+    print("Searching for 40:", "Found" if linked_list.search(40) else "Not Found")
+
+        
+                    </code></pre>
+                            <button class="copy-button" onclick="copyCode('pyCode')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="container centered-content" id="practice">
+                <div class="title">
+                    <h2>Practice</h2>
+                </div>
+                <div class="content">
+                    <div class="desc1">
+                        <!-- <p class="desc"><b><u>Example</u></b><br><br>
+                            <b>If the list is unsorted it performs Linear Search : </b><br><br>
+                            Suppose that the input list is = <b>[10, 13, 9, 18, 5, 11]</b> <br> and the target element
+                            to be found in the list is 18. <br><br>
+                        </p>
+                        <div class="anime" id="linearanime">
+                            <img id="lsEx" src="images/LinearSearch01.png" alt="Example of Linear Search">
+                        </div>
+                        <br><br><br>
+                        <p><b>If the list is sorted then perform Binary Search : </b><br><br>
+                            Suppose that the input list is = <b>[17, 32, 45, 53, 57, 61, 79, 88]</b> <br> We have to
+                            find the element <b>79</b> in the list. <br><br></p>
+                        <div class="anime" id="binaryanime">
+                            <div class="stepsP">
+                                <ol type="a">
+                                    <li>Mid index: (0 + 7) / 2 = 3</li>
+                                    <li>Since 53 is less than the target value of 79, we narrow down the search range to
+                                        the right half of the list.</li>
+                                    <li>Mid index: (4 + 7) / 2 = 5</li>
+                                    <li>Since 61 is less than the target value of 79, we again narrow down the search
+                                        range to the right half of the remaining elements.</li>
+                                    <li>Mid index: (6 + 7) / 2 = 6</li>
+                                    <li>The mid-value is equal to the target value of 79, so the search is successful.
+                                        The index 6 represents the position of the target value 79 in the sorted list.
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <img id="bsEx" src="images/BinarySearch02.png" alt="Example of Binary Search">
+
+                        </div>
+                        <br><br><br>
+                    </div>
+                    <br><br><br> -->
+                <!-- </div>
+                <div class="your-turn" id="your_turn">
+                    <label id="labyt"><b><u>YOUR TURN </u></b></label><br>
+                    <label for="arrayInput">Enter an array</label>
+                    <input type="text" id="arrayInput" placeholder="e.g., 1, 2, 3, 4, 5">
+
+                    <label for="targetInput">Enter a target element</label>
+                    <input type="text" id="targetInput" placeholder="e.g., 3">
+
+                    <button class="sbt" id="searchbt" onclick="performSearch()">Search</button>
+                    <br>
+
+                    <div class="array-container" id="arrayContainer"></div>
+
+                    <div id="resultsContainer"></div>
+                </div>
+                <span id="rott">*&#8635;Rotate for smaller screens</span>
+            </div>
+
+            <div class="container" id="result">
+                <div class="title">
+                    Result
+                </div>
+                <div class="content">
+                    <p>
+                        The adaptive search algorithm will apply appropriate searching algorithm (linear/binary) as per
+                        the ordering of the elements in the input list. It will return the index of the target element
+                        if it is found in the list or -1 if the element is not present.
+                    </p>
+                </div>-->
+            </div>
+            <!-- Quiz Section -->
+            <div class="container centered-content" id="quiz">
+                <div class="title">
+                    Quiz
+                </div>
+                <p id="question"></p>
+                <div id="choices" class="choices"></div>
+                <button id="next-btn" class="next-button">Next</button>
+            </div>
+
+            <!-- References Section -->
+            <div class="container" id="references">
+                <div class="title">
+                    References
+                </div>
+                <div class="content">
+                    <ul class="ref-list">
+                        <li><span>Cormen, T. H., Leiserson, C. E., Rivest, R. L., Stein, C. (2022). Introduction to
+                                Algorithms, Fourth Edition. United Kingdom: MIT Press.</span></li>
+                        <li><span>Bhargava, A. (2016). Grokking Algorithms: An Illustrated Guide for Programmers and
+                                Other Curious People. United States: Manning.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Team & Tools Section -->
+            <div class="container" id="tnt">
+                <div class="title">
+                    Team & Tools
+                </div>
+                <div class="content">
+                    <span>Students</span>
+                    <ul class="ref-list">
+                        <li><a href="/" rel="noopener"
+                                target="_blank"><span>Rishik Chaudhary - B. Sc. (H) CS</span></a></li>
+                        <li><a href="/" rel="noopener"
+                                target="_blank"><span>Keshav Khari - B. Sc. (H) CS</span></a></li>
+                    </ul>
+                    <span>Mentors</span>
+                    <ul class="ref-list">
+                        <li><span>Mrs. Priyanka Sharma</span></li>
+                    </ul>
+                    <span>Tools Used</span>
+                    <ul class="tools-list">
+                        <li><span>Vanilla HTML, CSS, JS - for creating the web page</span></li>
+                        <li><span>Figma - for designing figures and UI mockups</span></li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+        </section>
+    </div>
+    <script>
+        hljs.highlightAll();
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('show');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
