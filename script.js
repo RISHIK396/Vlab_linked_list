@@ -1,333 +1,867 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // head nav
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 10) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-
-    const searchButton = document.getElementById('searchbt');
-    searchButton.addEventListener('click', performSearch);
-
-});
-
-let topicElements = {
-    'aim': document.getElementById('aim'),
-    'theory': document.getElementById('theory'),
-    'procedure': document.getElementById('procedure'),
-    'practice': document.getElementById('practice'),
-    'code': document.getElementById('code'),
-    'result': document.getElementById('result'),
-    'quiz': document.getElementById('quiz'),
-    'references': document.getElementById('references'),
-    'tnt': document.getElementById('tnt')
-};
-let currentTopic = 'aim'; // Default topic
-
-
-function switchContent(topic) {
-    if (topic === currentTopic) {
-        return;
-    }
-
-    topicElements[currentTopic].style.display = 'none';
-    topicElements[topic].style.display = 'block';
-    currentTopic = topic;
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+::selection {
+  color: rgb(0, 0, 0);
+  background: rgba(110, 188, 230, 0.675);
 }
 
-function toggleCode(language) {
-    if (language === 'cpp') {
-        document.getElementById('cppCode').style.display = 'block';
-        document.getElementById('pyCode').style.display = 'none';
-    } else if (language === 'python') {
-        document.getElementById('cppCode').style.display = 'none';
-        document.getElementById('pyCode').style.display = 'block';
-    }
+body {
+  background-color: rgba(255, 255, 255, 0.603);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
-function copyCode(elementId) {
-    var codeBlock = document.getElementById(elementId);
-    var code = codeBlock.querySelector('code').innerText;
-
-    navigator.clipboard.writeText(code).then(function () {
-        var copyButton = codeBlock.querySelector('.copy-button');
-        copyButton.textContent = 'Copied!';
-        setTimeout(function () {
-            copyButton.textContent = 'Copy';
-        }, 2000);
-    }, function (err) {
-        console.error('Could not copy text: ', err);
-    });
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  height: 12vh;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(0, 52, 65, 1);
+  color: #fff;
+  z-index: 1000;
 }
 
-// Practice section 
-function performSearch() {
-    const arrayInput = document.getElementById("arrayInput").value;
-    const targetInput = document.getElementById("targetInput").value;
-
-
-    const array = arrayInput.split(",").map(item => item.trim());
-
-
-    const isNumericArray = array.every(item => !isNaN(parseFloat(item)));
-    if (!isNumericArray) {
-        displayResults(["Input array must contain only numeric or floating-point values."]);
-        return;
-    }
-
-
-    if (array.length > 15) {
-        displayResults(["Input array cannot have more than 15 elements."]);
-        return;
-    }
-
-    const isAlphanumeric = array.some(item => !/^-?\d*\.?\d+$/.test(item));
-    if (isAlphanumeric) {
-        displayResults(["Input array must contain only numeric or floating-point values."]);
-        return;
-    }
-
-    const target = parseFloat(targetInput);
-
-    const isSorted = checkSort(array);
-
-    let searchType;
-    if (isSorted) {
-        searchType = "Binary Search";
-        binarySearchWithSteps(array.map(Number), target);
-    } else {
-        searchType = "Linear Search";
-        linearSearchWithSteps(array.map(Number), target);
-    }
-
-    displayResults([`Performing ${searchType}...`]);
+.logo {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.logo-img {
+  height: 60px;
 }
 
-function checkSort(array) {
-    for (let i = 1; i < array.length; i++) {
-        if (parseFloat(array[i]) < parseFloat(array[i - 1])) {
-            return false;
-        }
-    }
-    return true;
+.vlabtitle {
+  padding-left: 19px;
+  left: 50%;
+  text-align: center;
+}
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  padding-right: 10px;
 }
 
-
-function displayArray(array, status) {
-    const arrayContainer = document.getElementById("arrayContainer");
-    arrayContainer.innerHTML = "";
-
-    for (let index = 0; index < array.length; index++) {
-        const elementDiv = document.createElement("div");
-        elementDiv.textContent = array[index];
-        elementDiv.classList.add("array-element", status);
-        arrayContainer.appendChild(elementDiv);
-    }
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
 }
-function displayResults(statements) {
-    const resultsContainer = document.getElementById("resultsContainer");
-    resultsContainer.innerHTML = "";
-
-    for (let i = 0; i < statements.length; i++) {
-        const statementDiv = document.createElement("div");
-        statementDiv.innerHTML = statements[i];
-
-        if (statements[i].includes("Target element found at index")) {
-            statementDiv.classList.add("foundg");
-        } else if (statements[i] === "Target element not found in the array.") {
-            statementDiv.classList.add("not-found");
-        }
-
-        resultsContainer.appendChild(statementDiv);
-    }
+.nav-menu a {
+  margin-left: 15px;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: 400;
+  border-radius: 3px;
+  color: #ffffff;
 }
 
-async function binarySearchWithSteps(array, target) {
-    const resultsContainer = document.getElementById("resultsContainer");
-    resultsContainer.innerHTML = "";
-
-    let low = 0;
-    let high = array.length - 1;
-    let foundIndex = -1;
-    const steps = [];
-
-    while (low <= high && foundIndex === -1) {
-        const midValue = Math.floor((low + high) / 2);
-        const currentArray = array.slice(low, high + 1); // Only the current search range
-        displayArray(currentArray, "unchecked");
-
-        const stepElement = document.getElementsByClassName("array-element")[midValue - low];
-        stepElement.classList.remove("unchecked");
-        stepElement.classList.add("checked");
-        const stepStatement = `Checking element at index ${midValue}. Array: [${currentArray.join(', ')}]`;
-
-        steps.push(stepStatement);
-        displayResults(steps);
-        await sleep(1000);
-
-        if (array[midValue] === target) {
-            foundIndex = midValue;
-        } else if (array[midValue] < target) {
-            low = midValue + 1;
-        } else {
-            high = midValue - 1;
-        }
-    }
-
-    if (foundIndex !== -1) {
-        const stepArray = array.slice(low, high + 1);
-        const foundElement = document.getElementsByClassName("array-element")[foundIndex - low];
-        foundElement.classList.remove("checked");
-        foundElement.classList.add("found", "blink");
-        const foundStatement = `Target element found at index ${foundIndex}. Array: [${stepArray.join(', ')}]`;
-        steps.push(foundStatement);
-        displayResults(steps);
-    } else {
-        const notFoundStatement = "Target element not found in the array.";
-        steps.push(notFoundStatement);
-        displayResults(steps);
-    }
+header .nav-menu a:hover {
+  background: rgba(111, 248, 248, 0.74);
+  cursor: pointer;
 }
 
-async function linearSearchWithSteps(array, target) {
-    const resultsContainer = document.getElementById("resultsContainer");
-    resultsContainer.innerHTML = "";
-
-    let foundIndex = -1;
-    const steps = [];
-
-    for (let index = 0; index < array.length && foundIndex === -1; index++) {
-        const stepArray = [...array];
-        displayArray(stepArray, "unchecked");
-
-        const stepElement = document.getElementsByClassName("array-element")[index];
-        stepElement.classList.remove("unchecked");
-        stepElement.classList.add("checked");
-        const stepStatement = `Iteration ${index + 1}: Checking element at index ${index}. Array: [${stepArray.join(', ')}]`;
-
-        steps.push(stepStatement);
-        displayResults(steps);
-        await sleep(1000);
-
-        if (stepArray[index] === target) {
-            foundIndex = index;
-        }
-    }
-
-    if (foundIndex !== -1) {
-        const stepArray = [...array];
-        const foundElement = document.getElementsByClassName("array-element")[foundIndex];
-        foundElement.classList.remove("checked");
-        foundElement.classList.add("found", "blink");
-        const foundStatement = `Target element found at index ${foundIndex}. Array: [${stepArray.join(', ')}]`;
-        steps.push(foundStatement);
-        displayResults(steps);
-    } else {
-        const notFoundStatement = "Target element not found in the array.";
-        steps.push(notFoundStatement);
-        displayResults(steps);
-    }
+.h1title {
+  font-size: 90%;
+  text-align: center;
+  margin: 0;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding: auto;
+  padding-bottom: 5px;
+  width: 100%;
 }
 
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+/* Navigation styles */
+.pageview {
+  display: grid;
+  place-items: center;
+  padding: 10px 0;
+  position: sticky;
+  flex-direction: column;
+  background-color: #fff;
 }
 
-// Quiz script
-
-const questions = [
-    {
-        question: " Q1) What is the time complexity of inserting a node at the beginning of a Singly Linked List?",
-        choices: ["O(log n)", "O(n)", "O(n^2)", "O(1)"],
-        correctAnswers: [0]
-    },
-    {
-        question: " Q2) In a Singly Linked List, how do you delete the last node?",
-        choices: [" Update the second last node’s next to NULL.","Update the last node's data to NULL.","Update the head to NULL.","It is not possible to delete the last node."],
-        correctAnswers: [0]
-    },
-    {
-        question: " Q3)What does the next pointer in a node of a Singly Linked List represent?",
-        choices: [" Points to the previous node.", " Points to the next node.", "Points to the head.", "Points to NULL."],
-        correctAnswers: [1]
-    },
-    {
-        question: " Q4) Which operation is faster in a Singly Linked List compared to an array?",
-        choices: ["Searching for an element.", "Accessing the middle element.", "Inserting an element at the beginning.", "Inserting an element at the end."],
-        correctAnswers: [2]
-    },
-    {
-        question: " Q5) In a Singly Linked List, if the head is NULL, what does it indicate?",
-        choices: ["The list has one node.", "The list is empty.", "The list has an infinite loop.", "The list contains only NULL values."],
-        correctAnswers: [2]
-    },
-];
-
-let currentQuestion = 0;
-let score = 0;
-
-const questionElement = document.getElementById("question");
-const choicesElement = document.getElementById("choices");
-const nextButton = document.getElementById("next-btn");
-
-function loadQuestion() {
-    const question = questions[currentQuestion];
-    questionElement.textContent = question.question;
-    choicesElement.innerHTML = '';
-
-    question.choices.forEach((choice, index) => {
-        const choiceElement = document.createElement("div");
-        choiceElement.className = "choice";
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = `choice-${index}`;
-        checkbox.value = index;
-
-        const label = document.createElement("label");
-        label.textContent = `  ${choice}`;
-        label.htmlFor = `choice-${index}`;
-
-        choiceElement.appendChild(checkbox);
-        choiceElement.appendChild(label);
-
-        choicesElement.appendChild(choiceElement);
-    });
+.pageview .navigation {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  border-radius: 20px;
+  background: rgb(0, 30, 37);
+  margin: 40px 25px;
+  padding-right: 10px;
+  padding-left: 10px;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+  color: rgb(138, 139, 138);
+  font-weight: bolder;
 }
 
-function checkAnswer() {
-    const question = questions[currentQuestion];
-    const selectedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    const selectedIndexes = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.value));
-
-    const isCorrect = JSON.stringify(selectedIndexes.sort()) === JSON.stringify(question.correctAnswers.sort());
-
-    if (isCorrect) {
-        score++;
-    }
-
-    currentQuestion++;
-
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-    } else {
-        showResult();
-    }
+.pageview .navigation .link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100px;
+  width: 110px;
+  padding: 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(0, 30, 37);
+  transition: background-color 0.7s ease;
+  margin: 1rem;
+  border: 2.5px solid rgb(215, 211, 211);
+  box-shadow: 0 2px 2px 0 rgb(224, 224, 224);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-function showResult() {
-    questionElement.textContent = `You scored ${score} out of ${questions.length}!`;
-    choicesElement.innerHTML = '';
-    nextButton.style.display = "none";
+.pageview .navigation .link:hover {
+  background-color: rgba(7, 238, 238, 0.8);
+  color: white;
 }
 
-nextButton.addEventListener("click", () => {
-    checkAnswer();
-});
+.pageview .navigation .link img {
+  height: 60px;
+  margin-bottom: 10px;
+}
 
-loadQuestion();
+.pageview .navigation .link span {
+  font-size: 0.8rem;
+}
 
+/* Scroll behavior */
+.scrolled .header,
+.scrolled .pageview {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 840px) {
+  .header {
+    flex-direction: row;
+    height: auto;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .header .vlabtitle {
+    margin-right: auto;
+
+    font-size: 0.75rem;
+  }
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    height: 100%;
+    width: 200px;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(4, 74, 74, 0.74);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    transition: right 0.4s ease;
+  }
+
+  .nav-menu a {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .nav-menu .close-btn {
+    display: block;
+    align-self: flex-end;
+    margin: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .nav-menu.show {
+    right: 0;
+  }
+  .pageview .navigation {
+    margin-top: 10px;
+    padding: 5px;
+  }
+
+  .pageview .navigation .link {
+    border-radius: 12px;
+    padding-top: 10px;
+    min-width: 58px;
+    height: 72px;
+    margin: 5px;
+    border-width: 2px;
+  }
+
+  .pageview .navigation .link img {
+    height: 35px;
+  }
+
+  .pageview .navigation .link span {
+    font-size: 0.7rem;
+  }
+  .practical {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 5px;
+    font-size: smaller;
+  }
+  .container {
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+  }
+  .container.centered-content {
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    width: 600px;
+
+    overflow: hidden;
+  }
+
+  #practice {
+    overflow-x: auto;
+  }
+
+  .code-content {
+    overflow-x: scroll;
+    width: 700px;
+  }
+  #code.container {
+    width: 640px;
+  }
+  .desc1 {
+    padding: 10px;
+  }
+  .stepsP {
+    padding-left: 10px;
+  }
+  #lsEx,
+  #bsEx {
+    width: 60%;
+    height: auto;
+  }
+  .choices {
+    display: grid;
+    place-items: center;
+    justify-content: space-between;
+  }
+
+  .choice {
+    flex: 0 0 calc(25% - 10px);
+  }
+
+  .copy-button {
+    position: absolute;
+    padding-right: 500px;
+  }
+  .ref-list li span,
+  .tools-list li span {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 840px) {
+  .nav-menu .close-btn {
+    display: none;
+  }
+}
+
+/* Practical section */
+.practical {
+  padding: 15px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 1500px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.practical .container {
+  flex: 0 0 calc(33.33% - 20px);
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  text-align: justify;
+}
+
+.practical .centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.practical .centered-content .title {
+  text-align: left;
+}
+
+.container.centered-content {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.practical .container .title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+.practical .container .content {
+  font-size: 1rem;
+}
+
+.practical .container p {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.practical .container ol {
+  margin-left: 20px;
+}
+
+.practical .container li {
+  margin-bottom: 5px;
+}
+
+.copy-button {
+  background-color: #256fd0;
+  color: #ffffff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.copy-button:hover {
+  background-color: #007bff;
+}
+
+.switch-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.switch-container label {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #8227f9;
+  color: #fff;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #27ebf9;
+  display: block;
+  border: solid greenyellow;
+}
+
+.code-blocks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code-block {
+  display: none;
+}
+
+.code-block.active {
+  display: block;
+}
+
+#lsEx,
+#bsEx {
+  width: 400px;
+  height: auto;
+}
+.your-turn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 30px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.your-turn:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#labyt {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+.your-turn label {
+  font-weight: bold;
+  display: block;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+#arrayInput,
+#targetInput {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  margin-top: 15px;
+  transition: border-color 0.3s ease;
+}
+
+#arrayInput:focus,
+#targetInput:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.your-turn label,
+#arrayInput,
+#targetInput,
+.sbt {
+  width: 100%;
+  max-width: 350px;
+}
+
+.sbt {
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sbt:hover {
+  background-color: #0056b3;
+}
+
+.sbt:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.array-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.array-element {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #000;
+  text-align: center;
+  border-radius: 5px;
+}
+.unchecked {
+  background-color: #fff;
+}
+
+.checked {
+  background-color: #ffeb3b; 
+}
+
+.uniterated {
+  background-color: #e0e0e0; 
+}
+
+.found {
+  background-color: #2f9afe; 
+  color: rgb(255, 255, 255);
+}
+.foundg {
+  color: green;
+}
+
+.not-found {
+  color: red;
+}
+.blink {
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#resultsContainer {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.desc1 {
+  text-align: justify;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width: 100%;
+  height: 50%;
+  margin: 0 auto;
+}
+.stepsP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.anime {
+  margin: 0 auto;
+  margin-left: 10%;
+}
+
+.anime {
+  width: 480px;
+  aspect-ratio: 3/1;
+}
+
+#submit {
+  font-size: 1rem;
+  padding: 4px 4px 4px 4px;
+  margin: 10px 10px 10px 200px;
+}
+
+#searchSteps {
+  margin: 10px 10px 10px 200px;
+}
+
+/* Quiz styles */
+.box {
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  text-align: left;
+}
+
+h2 {
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+}
+
+h4 {
+  font-size: 14px;
+  color: #777;
+}
+
+#question {
+  font-size: 18px;
+  margin-left: 5px;
+  margin-top: 20px;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.choices .choice {
+  width: 500px;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid rgb(12, 12, 12);
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  overflow-wrap: break-word;
+}
+
+.choices .choice:hover {
+  background-color: rgb(46, 132, 245);
+  color: #fff;
+}
+
+.codes button,
+#next-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.codes button:hover,
+#next-btn:hover,
+#searchbt:hover {
+  background-color: #6725d0;
+}
+
+.stepsP {
+  list-style: none;
+  padding-left: 0;
+}
+
+.stepsP li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.stepsP span {
+  display: block;
+}
+
+.copy-button {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.copy-button:hover {
+  background-color: #1a2230;
+}
+
+.choices {
+  margin-top: 30px;
+}
+
+#next-btn {
+  margin-top: 30px;
+}
+.code-block {
+  position: relative;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.code-content {
+  position: relative;
+  min-width: 1080px;
+}
+
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #464646;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.copy-button.copied {
+  background-color: #171717;
+  color: white;
+}
+
+.code-content:hover .copy-button {
+  display: block;
+}
+
+.copy-button {
+  display: none;
+}
+
+.language-cpp,
+.language-python {
+  padding: 20px;
+  margin: 0;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+/* Reference */
+.references-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.references-list li {
+  margin-bottom: 10px;
+}
+
+.references-list span {
+  display: block;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+ul,
+ol {
+  padding-left: 0px;
+  margin: 10px 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.steps-list ol {
+  margin-left: 10px;
+}
+
+.ref-list li,
+.tools-list li {
+  list-style-type: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.ref-list li:hover,
+.tools-list li:hover {
+  background-color: #f1f1f1;
+}
+
+.ref-list li span,
+.tools-list li span {
+  font-size: 16px;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Tile control  */
+#aim,
+#theory,
+#procedure,
+#code,
+#result,
+#quiz,
+#practice,
+#references,
+#tnt {
+  display: none;
+}
+#aim {
+  display: block;
+}
+
+/* Adjustments */
+@media screen and (max-width: 420px) {
+  .container {
+    margin: 0 auto;
+  }
+  .practical {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 5px;
+    font-size: smaller;
+  }
+  .container {
+    padding: 5px;
+    margin: 0;
+  }
+  #lsEx,
+  #bsEx {
+    width: 60%;
+    height: auto;
+    margin-left: -20px;
+  }
+  .your-turn {
+    width: 320px;
+    margin: 5px;
+  }
+  .container.centered-content {
+    padding: 5px;
+    margin: 0;
+    text-align: left;
+    width: 340px;
+    max-width: auto;
+  }
+  .choices {
+    justify-content: space-between;
+  }
+
+  .choices .choice {
+    width: 300px;
+    margin-left: 10px;
+  }
+  .centered-content.your-turn {
+    width: 300px;
+  }
+  .code-block {
+    overflow: scroll;
+    width: 320px;
+  }
+  #code.container {
+    width: 330px;
+  }
+  #practice .stepsP li {
+    width: 220px;
+  }
+}
