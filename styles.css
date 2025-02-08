@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 ::selection {
-  color: rgb(11, 0, 48);
+  color: rgb(0, 0, 0);
   background: rgba(110, 188, 230, 0.675);
 }
 
@@ -864,4 +864,57 @@ a {
   #practice .stepsP li {
     width: 220px;
   }
+}
+
+#s1_img{
+  height: 300px;
+}
+
+#s2_img{
+  height: 300px;
+}
+
+#s3_img{
+  height:250px;
+}
+#s4_img{
+  height: 400px;
+  width:580px;
+}
+#s5_img{
+  height: 250px;
+  width:auto
+}
+#s6_img{
+  height:330px;
+
+}
+
+#s7_img{
+  height:250px;
+}
+
+#s8_img{
+  height: 300px;
+}
+
+#s9_img{
+  height:230px;
+}
+
+#s10_img{
+  height:300px;
+}
+
+#s11_img{
+  height:300px;
+}
+
+#s12_img{
+  height:400px;
+}
+
+
+#s13_img{
+  height:300px;
 }
