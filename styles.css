@@ -867,54 +867,91 @@ a {
 }
 
 #s1_img{
-  height: 300px;
+  position: relative;
+  height: 340px;
+  width:600px;
+  left:60px;
 }
 
 #s2_img{
+  position: relative;
   height: 300px;
+  width: 660px;
 }
 
 #s3_img{
+  position:relative;
   height:250px;
+  width:650px;
+  left:50px;  
 }
 #s4_img{
-  height: 400px;
-  width:580px;
+  position:relative;
+  height: 514px;
+  width:770px;
+  left:40px;
 }
 #s5_img{
-  height: 250px;
-  width:auto
+  position:relative;
+  left:40px;
+  height: 200px;
+  width:600;
 }
 #s6_img{
-  height:330px;
+  position: relative;
+  left:40px;
+  height:300px;
+  width:650px;
 
 }
 
 #s7_img{
-  height:250px;
+  position: relative;
+  left:40px;
+  height:221px;
+  width: 661px;
 }
 
 #s8_img{
-  height: 300px;
+  position: relative;
+  height: 324px;
+  left:65px;
+  width:650px;
+  
 }
 
 #s9_img{
-  height:230px;
+  position:relative;
+  height:204px;
+  width:650px;
+  left:57px;
 }
 
 #s10_img{
-  height:300px;
+  position:relative;
+  left:68px;
+  width:652px;
+  height:386px;
 }
 
 #s11_img{
-  height:300px;
+  position:relative;
+  width:618px;
+  left:40px;
+  height:256px;
 }
 
 #s12_img{
-  height:400px;
+  position:relative;
+  height:320px;
+  width:650px;
+  left:85px;
 }
 
 
 #s13_img{
-  height:300px;
+  position:relative;
+  height:219px;
+  width:635px;
+  left:74px;
 }
