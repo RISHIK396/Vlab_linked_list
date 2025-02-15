@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="V-Lab.....Search Algorithms....Linear Search and Binary Search">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Algorithms</title>
+    <title>Singly Linked List</title>
     <link rel="icon" href="images/vlab-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet"
@@ -38,7 +38,7 @@
     </header>
 
     <div class="h1title">
-        <h1>Search Algorithms</h1>
+        <h1>Singly Linked List</h1>
     </div>
 
     <div class="pageview">
@@ -59,7 +59,7 @@
             </button>
 
             <button class="link" onclick="switchContent('practice')">
-                <img class="icon" src="practice_img.png"  alt="PRACTICE">
+             <a href="index.html"><img class="icon" src="practice_img.png"  alt="PRACTICE"></a>
                 <span>Practice</span>
             </button>
 
@@ -611,64 +611,9 @@ if __name__ == "__main__":
 
 
 
-            <div class="container centered-content" id="practice">
-                <div class="title">
-                    <h2>Practice</h2>
-                </div>
-                <div class="content">
-                    <div class="desc1">
-                        <p class="desc"><b><u>Example</u></b><br><br>
-                            <b>If the list is unsorted it performs Linear Search : </b><br><br>
-                            Suppose that the input list is = <b>[10, 13, 9, 18, 5, 11]</b> <br> and the target element
-                            to be found in the list is 18. <br><br>
-                        </p>
-                        <div class="anime" id="linearanime">
-                            <img id="lsEx" src="images/LinearSearch01.png" alt="Example of Linear Search">
-                        </div>
-                        <br><br><br>
-                        <p><b>If the list is sorted then perform Binary Search : </b><br><br>
-                            Suppose that the input list is = <b>[17, 32, 45, 53, 57, 61, 79, 88]</b> <br> We have to
-                            find the element <b>79</b> in the list. <br><br></p>
-                        <div class="anime" id="binaryanime">
-                            <div class="stepsP">
-                                <ol type="a">
-                                    <li>Mid index: (0 + 7) / 2 = 3</li>
-                                    <li>Since 53 is less than the target value of 79, we narrow down the search range to
-                                        the right half of the list.</li>
-                                    <li>Mid index: (4 + 7) / 2 = 5</li>
-                                    <li>Since 61 is less than the target value of 79, we again narrow down the search
-                                        range to the right half of the remaining elements.</li>
-                                    <li>Mid index: (6 + 7) / 2 = 6</li>
-                                    <li>The mid-value is equal to the target value of 79, so the search is successful.
-                                        The index 6 represents the position of the target value 79 in the sorted list.
-                                    </li>
-                                </ol>
-                            </div>
-
-                            <img id="bsEx" src="images/BinarySearch02.png" alt="Example of Binary Search">
-
-                        </div>
-                        <br><br><br>
-                    </div>
-                    <br><br><br>
-                </div>
-                <div class="your-turn" id="your_turn">
-                    <label id="labyt"><b><u>YOUR TURN </u></b></label><br>
-                    <label for="arrayInput">Enter an array</label>
-                    <input type="text" id="arrayInput" placeholder="e.g., 1, 2, 3, 4, 5">
-
-                    <label for="targetInput">Enter a target element</label>
-                    <input type="text" id="targetInput" placeholder="e.g., 3">
-
-                    <button class="sbt" id="searchbt" onclick="performSearch()">Search</button>
-                    <br>
-
-                    <div class="array-container" id="arrayContainer"></div>
-
-                    <div id="resultsContainer"></div>
-                </div>
-                <span id="rott">*&#8635;Rotate for smaller screens</span>
-            </div>
+            <!-- <div class="container centered-content" id="practice">
+               <a href=""></a>
+            </div> -->
 
             <div class="container" id="result">
                 <div class="title">
