@@ -1,100 +1,106 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f9f9f9;
+    background: #f9f9f9;
 }
 
-.controls {
+.controls, button {
     margin-bottom: 20px;
-}
-
-input {
-    padding: 8px;
-    margin: 5px;
-    height: 30px;
-    width: 350px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.simulation{
-    left: 50px;
-    color: green;
-}
-.input-container {
-    position:relative;
-    top:30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px; 
-}
-
-.inputlist input {
-    padding: 8px;
-    font-size: 16px;
-    text-align: center;
-    margin: 5px;
-    height: 30px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-
-#runSimulationButton {
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
-    text-align: center;
-}
-
-button {
-    padding: 8px 16px;
-    margin: 5px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
+    border-radius: 4px;
     border: none;
-    border-radius: 4px;
     transition: background-color 0.3s ease;
 }
 
+button {
+    background: #007bff;
+    color: white;
+}
 button:hover {
-    background-color: #0056b3;
+    background: #0056b3;
+}
+
+p {
+    font-size: 18px;
+    color: #333;
+    position: relative;
+    top: 30px;
+    right: 70px;
+}
+
+input, .inputlist input {
+    padding: 8px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 5px;
+    text-align: center;
+}
+input {
+    width: 350px;
+}
+.inputlist input {
+    width: 200px;
+}
+
+.simulation {
+    left: 50px;
+    color: green;
+}
+
+.input-container {
+    position: relative;
+    top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+#runSimulationButton {
+    text-align: center;
 }
 
 .list-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     margin-top: 78px;
+}
+
+.node-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
 }
 
 .node {
     display: flex;
     width: 80px;
     height: 50px;
+    margin: 15px;
+    background: #f8f8f8;
     border: 2px solid #333;
     border-radius: 5px;
-    margin: 30px;
-    background: #f8f8f8;
     position: relative;
-    transition: margin 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: margin 0.3s, transform 0.3s ease-in-out;
 }
 
 .node-value, .node-pointer {
     flex: 1;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     font-weight: bold;
 }
-
 .node-value {
-    border-right: 2px solid #333;
     background: #f1f1f1;
+    border-right: 2px solid #333;
 }
-
 .node-pointer {
     position: relative;
 }
@@ -105,37 +111,23 @@ button:hover {
     top: 40%;
     right: -35px;
     transform: translateY(-50%);
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: transform 0.3s, opacity 0.3s;
 }
 
+.head-pointer, .head-arrow {
+    position: absolute;
+    left: 30%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    color: black;
+}
 .head-pointer {
     font-size: 15px;
-    font-weight: bold;
-    position: absolute;
     top: -50px;
-    left: 30%;
-    transform: translateX(-50%);
-    color: black;
 }
-
 .head-arrow {
     font-size: 24px;
-    font-weight: bold;
-    position: absolute;
     top: -35px;
-    left: 30%;
-    transform: translateX(-50%);
-    color: black;
-}
-@keyframes headarrowExpand{
-    0%{color: green;}
-    50%{font-size: 30px;}
-    100%{font: 24px; color: black;}
-    
-}
-
-.pointer-expands{
-    animation: headarrowExpand  0.5s ease-in-out; 
 }
 
 .null-sign {
@@ -143,97 +135,72 @@ button:hover {
     color: #333;
 }
 
-/* Animation for node spacing */
-/* Animation for node spacing */
-@keyframes nodeSpacing {
-    0% { margin-right: 30px; }
-    50% { margin-right: 80px; } /* Increased spacing */
-    100% { margin-right: 30px; }
+.node-index {
+    font-size: 15px;
+    color: black;
+    margin-top: -10px;
 }
 
+/* Animations */
+@keyframes headarrowExpand {
+    0% { color: green; }
+    50% { font-size: 30px; }
+    100% { font-size: 24px; color: black; }
+}
+.pointer-expands {
+    animation: headarrowExpand 0.5s ease-in-out;
+}
+
+@keyframes nodeSpacing {
+    0%, 100% { margin-right: 30px; }
+    50% { margin-right: 80px; }
+}
 .traverse-node {
     animation: nodeSpacing 0.6s ease-in-out;
 }
 
-/* Animation for arrow expansion */
 @keyframes arrowExpand {
-    0% { transform: scale(1) translateY(-50%); opacity: 1; }
-    50% { transform: scale(1.4) translateY(-50%); opacity: 1; } /* Expansion */
-    100% { transform: scale(1) translateY(-50%); opacity: 1; }
+    0%, 100% { transform: scale(1) translateY(-50%); opacity: 1; }
+    50% { transform: scale(1.4) translateY(-50%); opacity: 1; }
 }
-
 .traverse-arrow {
     animation: arrowExpand 0.6s ease-in-out;
 }
 
-/* Highlight animation for nodes */
 @keyframes nodeBlink {
-    0% { background-color: yellow; }
-    50% { background-color: white; }
-    100% { background-color: yellow; }
+    0%, 100% { background: yellow; }
+    50% { background: white; }
 }
-
 .blink-node {
     animation: nodeBlink 0.5s ease-in-out;
 }
 
-
-@keyframes blink {
-    0% { background-color: white; }
-    50% { background-color: yellow; }
-    100% { background-color: white; }
-}
-
-.blink {
-    animation: blink 0.5s linear 3; /* Blinks 3 times */
-}
-
 @keyframes blinkGreen {
-    0% { background-color: #32CD32; } /* Green */
-    50% { background-color: white; }
-    100% { background-color: #32CD32; }
+    0%, 100% { background: #32CD32; }
+    50% { background: white; }
 }
-
-@keyframes blinkRed {
-    0% { color: red; }
-    50% { color: white; }
-    100% { color: red; }
-}
-
 .blink-found {
     animation: blinkGreen 0.5s linear infinite;
 }
 
+@keyframes blinkRed {
+    0%, 100% { color: red; }
+    50% { color: white; }
+}
 .blink-null {
     animation: blinkRed 0.5s linear infinite;
 }
 
-
-
-.node-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-}
-
-.node-index {
-    font-size: 15px;
-    color: black;
-    margin-top: -20px;
-}
-
-.blink-index {
-    animation: blink 0.5s linear infinite alternate;
-}
-
-@keyframes blink {
+@keyframes blinkOpacity {
     0% { opacity: 1; }
     100% { opacity: 0.5; }
 }
+.blink-index {
+    animation: blinkOpacity 0.5s linear infinite alternate;
+}
 
-#button_god{
-    position:relative;
-    top:20px;
-    right:25px;
+#button_god {
+    position: relative;
+    top: 20px;
+    right: 25px;
 }
